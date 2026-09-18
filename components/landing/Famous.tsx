@@ -1,15 +1,12 @@
 const notableClients = [
   { name: "Chris Martin", title: "Lead singer of Coldplay", video: "/videos/chris-martin.mp4" },
-  { name: "Mr. Wonderful", title: "Shark Tank host", video: "/videos/mr-wonderful.mp4" },
+  { name: "Jenny Brown", title: "News anchor", video: "/videos/jenny-brown.mp4" },
 ];
 
 export default function Famous() {
   return (
     <section className="bg-[#e9edff] py-16">
       <div className="max-w-md px-6 lg:max-w-2xl lg:px-[60px]">
-        <p className="hidden text-[16px] font-black uppercase leading-4 text-black/60 lg:block">
-          What parents think
-        </p>
         <h2 className="mt-0 text-[28px] font-black uppercase leading-[32px] text-[#111] lg:mt-3 lg:text-[56px] lg:leading-[56px]">
           Honored to have performed for stars
         </h2>
@@ -20,7 +17,7 @@ export default function Famous() {
           <div key={person.name} className="w-[290px] shrink-0 lg:w-[399px]">
             <video
               controls
-              poster="/images/celebrity.png"
+              preload="metadata"
               className="h-[502px] w-[290px] rounded-xl bg-black object-cover lg:h-[643px] lg:w-[399px]"
             >
               <source src={person.video} type="video/mp4" />
