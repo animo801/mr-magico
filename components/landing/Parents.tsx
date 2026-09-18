@@ -3,7 +3,7 @@ const featureBoxes = [
   { label: "Jokes to get'em laughing", icon: '😂' },
   { label: 'Live Animals', icon: '🐰' },
   { label: 'Music + Sound Effects', icon: '🎶' },
-  { label: 'Magic Participation', icon: '✨' },
+  { label: 'Custom balloon animals', icon: '✨' },
   { label: 'Teach a trick', icon: '🪄' },
 ];
 
@@ -15,12 +15,12 @@ export default function Parents() {
           {featureBoxes.map(({ label, icon }) => (
             <div
               key={label}
-              className='flex h-[125px] flex-col items-center justify-center gap-2 rounded-xl border border-[#223a7b]/10 bg-[#f4f6fd] px-2 text-center shadow-sm transition-shadow hover:shadow-md lg:h-[164px] lg:flex-row lg:items-center lg:justify-start lg:rounded-md lg:border-0 lg:bg-[#d9d9d9] lg:px-5 lg:text-left lg:shadow-none lg:hover:shadow-none'
+              className='flex h-[125px] flex-col items-center justify-center gap-2 rounded-xl border border-[#223a7b]/10 bg-[#f4f6fd] px-2 text-center shadow-sm transition-shadow hover:shadow-md'
             >
-              <span className='text-2xl lg:hidden' aria-hidden>
+              <span className='text-2xl' aria-hidden>
                 {icon}
               </span>
-              <span className='text-[12.33px] font-black uppercase leading-[24.66px] text-[#223a7b] lg:text-[16px] lg:leading-[21px] lg:text-black'>
+              <span className='text-[12.33px] font-black uppercase leading-[24.66px] text-[#223a7b]'>
                 {label}
               </span>
             </div>

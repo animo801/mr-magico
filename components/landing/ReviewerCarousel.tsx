@@ -1,10 +1,15 @@
 import Image from "next/image";
 
-/**
- * Only one reviewer photo was exported from Figma — add more paths here once
- * real reviewer photos are available.
- */
-const reviewerSources = ["/images/review-avatar.png"];
+/** Real Google reviewer avatars shown in the scrolling marquee. */
+const reviewerSources = [
+  "/images/review-avatar-1.png",
+  "/images/review-avatar-2.png",
+  "/images/review-avatar-3.png",
+  "/images/review-avatar-4.png",
+  "/images/review-avatar-5.png",
+  "/images/review-avatar-6.png",
+  "/images/review-avatar-7.png",
+];
 
 /**
  * The two-track marquee below only loops seamlessly if EACH track's rendered

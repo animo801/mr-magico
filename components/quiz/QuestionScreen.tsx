@@ -42,7 +42,7 @@ export default function QuestionScreen({
         <p className="text-xs font-black uppercase tracking-wide text-gray-400">
           Question {stepNumber} of {totalSteps}
         </p>
-        <h1 className="mt-2 text-[28px] font-black uppercase leading-[32px] text-[#00157a]">
+        <h1 className="mt-2 text-[32px] font-black uppercase leading-[36px] text-[#00157a]">
           {question.question}
         </h1>
       </div>
@@ -56,7 +56,7 @@ export default function QuestionScreen({
                 key={option.value}
                 type="button"
                 onClick={() => setValue(option.value)}
-                className={`flex min-h-16 w-full items-center justify-center px-3 py-3 text-center text-[28px] font-black uppercase leading-[32px] transition-colors ${
+                className={`flex min-h-16 w-full items-center justify-center px-3 py-3 text-center text-[15px] font-black uppercase leading-[20px] transition-colors ${
                   selected
                     ? "bg-[#3653e3]/10 text-[#3653e3] ring-2 ring-[#3653e3]"
                     : "bg-[#d9d9d9]/21 text-black"

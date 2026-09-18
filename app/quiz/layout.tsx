@@ -46,7 +46,7 @@ export default function QuizLayout({ children }: { children: React.ReactNode }) 
           </div>
         )}
 
-        <main className="mx-auto w-full max-w-md flex-1 px-6 py-8">{children}</main>
+        <main className="mx-auto w-full max-w-md flex-1 px-6 py-8 lg:max-w-3xl">{children}</main>
       </div>
     </QuizProvider>
   );

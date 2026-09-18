@@ -31,7 +31,7 @@ export default function FAQ() {
   return (
     <section className="bg-white px-6 py-16">
       <div className="mx-auto max-w-md lg:max-w-2xl">
-        <h2 className="text-center text-[28px] font-black uppercase text-black lg:text-[56px]">
+        <h2 className="text-center text-[28px] font-black uppercase leading-[28px] text-black lg:text-[56px] lg:leading-[56px]">
           Frequently asked questions
         </h2>
         <div className="mt-8 flex flex-col gap-3">
@@ -42,13 +42,13 @@ export default function FAQ() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(open ? null : index)}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-sm font-black uppercase text-black"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-lg font-black uppercase text-black"
                 >
                   {item.q}
                   <span className="text-lg">{open ? "−" : "+"}</span>
                 </button>
                 {open && (
-                  <p className="px-5 pb-4 text-sm leading-relaxed text-black/70">{item.a}</p>
+                  <p className="px-5 pb-4 text-lg leading-relaxed text-black/70">{item.a}</p>
                 )}
               </div>
             );
