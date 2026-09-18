@@ -1,6 +1,7 @@
 type Lead = {
   firstName: string;
   phone: string;
+  contactPreference: string;
   email: string;
   answers: Record<string, string>;
   eventSourceUrl: string;
@@ -29,6 +30,7 @@ export async function sendLeadToGHL(lead: Lead) {
       body: JSON.stringify({
         firstName: lead.firstName,
         phone: lead.phone,
+        contactPreference: lead.contactPreference,
         email: lead.email,
         source: "Mr. Magico Quiz",
         eventSourceUrl: lead.eventSourceUrl,
@@ -58,7 +60,7 @@ export async function sendLeadToGHL(lead: Lead) {
         firstName: lead.firstName,
         phone: lead.phone,
         email: lead.email,
-        tags: ["mr-magico-quiz"],
+        tags: ["mr-magico-quiz", `prefers-${lead.contactPreference}`],
         source: "Mr. Magico Quiz",
       }),
     });

@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -29,28 +30,35 @@ function createEventId() {
 }
 
 export function QuizProvider({ children }: { children: ReactNode }) {
-  const [answers, setAnswers] = useState<Answers>(() => {
-    if (typeof window === "undefined") return {};
+  // Start with the same empty state on server and client — reading
+  // sessionStorage during the initial render (rather than in an effect after
+  // mount) makes the client's first render diverge from the server-rendered
+  // HTML whenever a prior answer/eventId is already stored, causing a
+  // hydration mismatch.
+  const [answers, setAnswers] = useState<Answers>({});
+  const [eventId, setEventId] = useState<string>("");
+
+  useEffect(() => {
     try {
       const stored = sessionStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : {};
+      if (stored) setAnswers(JSON.parse(stored));
     } catch {
-      return {};
+      // sessionStorage unavailable (private mode, etc.) — in-memory state still works
     }
-  });
 
-  const [eventId] = useState<string>(() => {
-    if (typeof window === "undefined") return "";
     try {
       const stored = sessionStorage.getItem(EVENT_ID_KEY);
-      if (stored) return stored;
-      const created = createEventId();
-      sessionStorage.setItem(EVENT_ID_KEY, created);
-      return created;
+      if (stored) {
+        setEventId(stored);
+      } else {
+        const created = createEventId();
+        sessionStorage.setItem(EVENT_ID_KEY, created);
+        setEventId(created);
+      }
     } catch {
-      return createEventId();
+      setEventId(createEventId());
     }
-  });
+  }, []);
 
   const setAnswer = (id: string, value: string) => {
     setAnswers((prev) => {

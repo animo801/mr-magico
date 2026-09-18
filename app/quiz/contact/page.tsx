@@ -6,11 +6,24 @@ import { useQuiz } from "@/context/quiz-context";
 import { fbTrack } from "@/lib/fpixel";
 import { quizQuestions } from "@/lib/quiz-config";
 
+function formatPhoneNumber(raw: string) {
+  const digits = raw.replace(/\D/g, "").slice(0, 10);
+  const area = digits.slice(0, 3);
+  const prefix = digits.slice(3, 6);
+  const line = digits.slice(6, 10);
+
+  if (digits.length > 6) return `(${area}) ${prefix}-${line}`;
+  if (digits.length > 3) return `(${area}) ${prefix}`;
+  if (digits.length > 0) return `(${area}`;
+  return "";
+}
+
 export default function ContactPage() {
   const router = useRouter();
   const { answers, eventId } = useQuiz();
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
+  const [contactPreference, setContactPreference] = useState("");
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,8 +32,12 @@ export default function ContactPage() {
     e.preventDefault();
     setError(null);
 
-    if (!firstName.trim() || !phone.trim() || !email.trim()) {
+    if (!firstName.trim() || !phone.trim() || !contactPreference || !email.trim()) {
       setError("Please fill out every field.");
+      return;
+    }
+    if (phone.replace(/\D/g, "").length !== 10) {
+      setError("Enter a valid 10-digit phone number.");
       return;
     }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -39,6 +56,7 @@ export default function ContactPage() {
         body: JSON.stringify({
           firstName: firstName.trim(),
           phone: phone.trim(),
+          contactPreference,
           email: email.trim(),
           answers,
           eventId,
@@ -67,7 +85,7 @@ export default function ContactPage() {
           Last step
         </p>
         <h1 className="mt-2 text-[28px] font-black uppercase leading-tight text-[#00157a]">
-          Where should we send your free consult?
+          How can we best get in touch with you?
         </h1>
       </div>
 
@@ -83,11 +101,34 @@ export default function ContactPage() {
         <input
           type="tel"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
           placeholder="Phone number"
           autoComplete="tel"
+          maxLength={14}
           className="w-full rounded-xl bg-[#d9d9d9]/40 px-5 py-4 text-[16px] font-bold text-black outline-none placeholder:font-normal placeholder:text-gray-500 focus:ring-2 focus:ring-[#3653e3]"
         />
+        <div className="flex gap-3">
+          {[
+            { value: "call", label: "Call me" },
+            { value: "text", label: "Text me" },
+          ].map((option) => {
+            const selected = contactPreference === option.value;
+            return (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setContactPreference(option.value)}
+                className={`flex h-[58px] w-full items-center justify-center rounded-xl px-5 text-[13px] font-black uppercase transition-colors ${
+                  selected
+                    ? "bg-[#3653e3]/10 text-[#3653e3] ring-2 ring-[#3653e3]"
+                    : "bg-[#d9d9d9]/40 text-black"
+                }`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
         <input
           type="email"
           value={email}

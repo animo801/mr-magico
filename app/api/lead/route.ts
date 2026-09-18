@@ -5,6 +5,7 @@ import { sendLeadToGHL } from "@/lib/ghl";
 type LeadRequestBody = {
   firstName?: string;
   phone?: string;
+  contactPreference?: string;
   email?: string;
   answers?: Record<string, string>;
   eventId?: string;
@@ -13,9 +14,9 @@ type LeadRequestBody = {
 
 export async function POST(request: NextRequest) {
   const body: LeadRequestBody = await request.json();
-  const { firstName, phone, email, answers = {}, eventId, eventSourceUrl } = body;
+  const { firstName, phone, contactPreference, email, answers = {}, eventId, eventSourceUrl } = body;
 
-  if (!firstName || !phone || !email || !eventId) {
+  if (!firstName || !phone || !contactPreference || !email || !eventId) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
   const sourceUrl = eventSourceUrl || request.headers.get("referer") || request.url;
 
   const [ghlResult, fbResult] = await Promise.allSettled([
-    sendLeadToGHL({ firstName, phone, email, answers, eventSourceUrl: sourceUrl }),
+    sendLeadToGHL({ firstName, phone, contactPreference, email, answers, eventSourceUrl: sourceUrl }),
     sendFacebookLeadEvent({
       eventId,
       email,

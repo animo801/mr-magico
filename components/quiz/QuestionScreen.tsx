@@ -55,7 +55,11 @@ export default function QuestionScreen({
               <button
                 key={option.value}
                 type="button"
-                onClick={() => setValue(option.value)}
+                onClick={() => {
+                  setValue(option.value);
+                  setAnswer(question.id, option.value);
+                  router.push(nextHref);
+                }}
                 className={`flex min-h-16 w-full items-center justify-center px-3 py-3 text-center text-[15px] font-black uppercase leading-[20px] transition-colors ${
                   selected
                     ? "bg-[#3653e3]/10 text-[#3653e3] ring-2 ring-[#3653e3]"
@@ -68,23 +72,24 @@ export default function QuestionScreen({
           })}
         </div>
       ) : (
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={question.placeholder}
-          className="h-16 w-full bg-[#d9d9d9]/21 px-5 text-[18px] font-bold text-black outline-none placeholder:font-normal placeholder:text-gray-500 focus:ring-2 focus:ring-[#3653e3]"
-        />
+        <>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder={question.placeholder}
+            className="h-16 w-full bg-[#d9d9d9]/21 px-5 text-[18px] font-bold text-black outline-none placeholder:font-normal placeholder:text-gray-500 focus:ring-2 focus:ring-[#3653e3]"
+          />
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={!value.trim()}
+            className="mt-2 h-12 w-full rounded-lg bg-[#3653e3] text-[18px] font-black uppercase text-white transition-opacity disabled:opacity-40"
+          >
+            Next question
+          </button>
+        </>
       )}
-
-      <button
-        type="button"
-        onClick={handleNext}
-        disabled={!value.trim()}
-        className="mt-2 h-12 w-[236px] max-w-full rounded-lg bg-[#3653e3] text-[18px] font-black text-white transition-opacity disabled:opacity-40"
-      >
-        Next question
-      </button>
     </div>
   );
 }
