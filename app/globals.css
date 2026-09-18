@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter-tight);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* CSS-only infinite marquee (https://blog.logto.io/css-only-infinite-scroll).
+   Two identical groups sit side by side (outer .marquee is a flex row with
+   gap: var(--marquee-gap) between them). Each group animates itself by
+   `-(100% + gap)` — i.e. its own width plus the gap to its neighbor — which
+   lands it exactly on the spot the next group started at, however wide the
+   content is. A single doubled track animated to -50% looks similar but is
+   off by half a gap (50% of the combined width isn't quite where the second
+   copy begins once a `gap` is involved), which shows up as a visible jump
+   every loop. */
+.marquee {
+  --marquee-gap: 0.5rem;
+  display: flex;
+  gap: var(--marquee-gap);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@media (min-width: 1024px) {
+  .marquee {
+    --marquee-gap: 1.5rem;
+  }
+}
+
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap);
+  animation: marquee-scroll 96s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
