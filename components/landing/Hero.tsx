@@ -4,11 +4,11 @@ import ReviewerCarousel from './ReviewerCarousel';
 
 export default function Hero() {
   return (
-    <section className='relative overflow-hidden bg-gradient-to-b from-[#0b1638] via-[#16255c] to-[#223a7b] pb-24 pt-28 text-white min-h-[780px] lg:min-h-screen lg:pb-0'>
-      {/* Mobile: video fills the section as a background. Desktop uses a
-          dedicated panel on the right instead (below) — the video is hidden
-          here at lg so it isn't rendered (and decoded) twice. */}
-      <div className='absolute inset-0 lg:hidden'>
+    <section className='relative overflow-hidden bg-gradient-to-b from-[#0b1638] via-[#16255c] to-[#223a7b] pb-16 text-white lg:min-h-screen lg:pb-0 lg:pt-28'>
+      {/* Mobile: landscape video at the top, with the text section below it.
+          Desktop uses a dedicated panel on the right instead (below) — the
+          video is hidden here at lg so it isn't rendered (and decoded) twice. */}
+      <div className='relative aspect-square w-full overflow-hidden lg:hidden'>
         <video
           autoPlay
           muted
@@ -20,17 +20,18 @@ export default function Hero() {
         >
           <source src='/videos/hero-highlight.mp4' type='video/mp4' />
         </video>
-        <div className='absolute inset-0 bg-gradient-to-b from-[#0b1638]/75 via-[#16255c]/70 to-[#223a7b]/75' />
+        {/* Keeps the logo / "Learn more" button legible over the video. */}
+        <div className='absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0b1638]/80 to-transparent' />
       </div>
 
       <Header />
-      <div className='relative mx-auto max-w-md px-6 lg:max-w-380 lg:pb-24 lg:pl-[48px] lg:pr-[calc(min(46vw,580px)+40px)]'>
+      <div className='relative mx-auto max-w-md px-6 pt-8 lg:max-w-380 lg:pt-0 lg:pb-24 lg:pl-[48px] lg:pr-[calc(min(46vw,580px)+40px)]'>
         <div className='lg:max-w-[1200px] '>
           <p className='hidden text-[20px] font-black uppercase text-white/50 lg:block'>
             The most popular magician in NYC
           </p>
           <h1 className='mt-0 text-[32px] font-black uppercase leading-[32px] lg:mt-3 lg:text-[56px] lg:leading-[56px] xl:text-[72px] xl:leading-[72px]'>
-            Your kids favorite{' '}
+            Book your kids favorite{' '}
             <span
               className='box-decoration-clone px-1 py-0.5'
               style={{
@@ -41,9 +42,9 @@ export default function Hero() {
               birthday party ever.
             </span>
           </h1>
-          <p className='mt-6 text-[24px] leading-[24px] text-white lg:text-[28px] lg:leading-[36px]'>
-            For over 20 years, we at Mr. Magico have been working to amazing
-            kids and adults with our act specifically for birthday parties.
+          <p className='mt-4 text-[22px] leading-[24px] text-white lg:text-[28px] lg:leading-[36px]'>
+            For over 20 years, we at Mr. Magico have worked hard to create a
+            show that makes your kid feel like the star of the show.
           </p>
           <Link
             href='/quiz/1'

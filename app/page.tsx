@@ -1,6 +1,7 @@
 import Hero from "@/components/landing/Hero";
 import WhyHire from "@/components/landing/WhyHire";
-import Parents from "@/components/landing/Parents";
+import KidsFeatures from "@/components/landing/KidsFeatures";
+// import Parents from "@/components/landing/Parents"; // hidden for now
 import Reviews from "@/components/landing/Reviews";
 import Famous from "@/components/landing/Famous";
 import FAQ from "@/components/landing/FAQ";
@@ -12,7 +13,8 @@ export default function Home() {
     <div className="flex flex-col">
       <Hero />
       <WhyHire />
-      <Parents />
+      <KidsFeatures />
+      {/* <Parents /> */}
       <Reviews />
       <Famous />
       <FAQ />

@@ -6,16 +6,16 @@ import Image from 'next/image';
  */
 const reviews = [
   {
-    name: 'Nicholas Collado',
-    quote:
-      "Mr. Magico was AWESOME! The show was thoughtful, very funny, interactive, and perfect for my daughter's birthday. I will definitely recommend!",
-    image: 'review-avatar-1',
-  },
-  {
     name: 'Sammi Sher',
     quote:
       "Mr. Magico was so fun! We had a family party (kids + adults) and Mr. Magico included and entertained everyone from Grandma to our 4 year old. While there weren't too many magic tricks, the entertainment was top notch. The bunny was the biggest hit!",
     image: 'review-avatar',
+  },
+  {
+    name: 'Nicholas Collado',
+    quote:
+      "Mr. Magico was AWESOME! The show was thoughtful, very funny, interactive, and perfect for my daughter's birthday. I will definitely recommend!",
+    image: 'review-avatar-1',
   },
   {
     name: 'Michael Melore',
@@ -88,7 +88,7 @@ export default function Reviews() {
         {displayReviews.map((review, i) => (
           <div
             key={i}
-            className='h-auto w-[249px] shrink-0 rounded-md bg-white/20 p-5 lg:w-[422px] lg:rounded-xl lg:p-8'
+            className='h-auto w-[310px] shrink-0 rounded-md bg-white/20 p-5 lg:w-[422px] lg:rounded-xl lg:p-8'
           >
             <div className='flex items-center gap-2 lg:gap-3'>
               <Image
@@ -102,7 +102,7 @@ export default function Reviews() {
                 {review.name}
               </p>
             </div>
-            <p className='mt-3 whitespace-pre-line text-[14px] leading-[22px] lg:mt-4 lg:text-[21px] lg:leading-[33px]'>
+            <p className='mt-3 whitespace-pre-line text-[18px] leading-[28px] lg:mt-4 lg:text-[21px] lg:leading-[33px]'>
               {review.quote}
             </p>
           </div>
