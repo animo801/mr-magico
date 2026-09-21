@@ -53,7 +53,7 @@ export async function sendLeadToGHL(lead: Lead) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
-        Version: process.env.GHL_API_VERSION ?? "v3",
+        Version: process.env.GHL_API_VERSION ?? "2021-07-28",
       },
       body: JSON.stringify({
         locationId,

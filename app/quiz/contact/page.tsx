@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useQuiz } from "@/context/quiz-context";
-import { fbTrack } from "@/lib/fpixel";
+import { fbTrackCustom, QUIZ_LEAD_EVENT_NAME } from "@/lib/fpixel";
 import { quizQuestions } from "@/lib/quiz-config";
 
 function formatPhoneNumber(raw: string) {
@@ -47,7 +47,7 @@ export default function ContactPage() {
 
     setSubmitting(true);
 
-    fbTrack("Lead", { content_name: "Mr. Magico Quiz" }, eventId);
+    fbTrackCustom(QUIZ_LEAD_EVENT_NAME, { content_name: "Mr. Magico Quiz" }, eventId);
 
     try {
       await fetch("/api/lead", {

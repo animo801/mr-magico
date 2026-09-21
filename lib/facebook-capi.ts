@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { QUIZ_LEAD_EVENT_NAME } from "@/lib/fpixel";
 
 function sha256(value: string) {
   return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
@@ -17,8 +18,8 @@ type LeadEventPayload = {
 };
 
 /**
- * Sends a server-side "Lead" event to Facebook's Conversions API.
- * Uses the same event_id as the client-side pixel `fbTrack` call so Meta
+ * Sends the server-side quiz-lead custom event to Facebook's Conversions API.
+ * Uses the same event name and event_id as the client-side `fbTrackCustom` call so Meta
  * deduplicates the two into a single event.
  * Requires NEXT_PUBLIC_FACEBOOK_PIXEL_ID and FACEBOOK_CONVERSIONS_API_TOKEN.
  */
@@ -36,7 +37,7 @@ export async function sendFacebookLeadEvent(payload: LeadEventPayload) {
   const digitsOnlyPhone = payload.phone.replace(/\D/g, "");
 
   const eventData = {
-    event_name: "Lead",
+    event_name: QUIZ_LEAD_EVENT_NAME,
     event_time: Math.floor(Date.now() / 1000),
     event_id: payload.eventId,
     event_source_url: payload.eventSourceUrl,

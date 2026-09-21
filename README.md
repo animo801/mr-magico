@@ -64,7 +64,7 @@ Set the same variables in Vercel (Project Settings → Environment Variables) be
   `PageView` on every client-side route change via
   [components/PixelRouteTracker.tsx](components/PixelRouteTracker.tsx).
 - On contact-form submit ([app/quiz/contact/page.tsx](app/quiz/contact/page.tsx)),
-  a `Lead` event fires client-side via the pixel **and** server-side via
+  a custom `Quiz Lead Submitted` event fires client-side via the pixel **and** server-side via
   [app/api/lead/route.ts](app/api/lead/route.ts) →
   [lib/facebook-capi.ts](lib/facebook-capi.ts). Both use the same `event_id`
   so Meta deduplicates them into one event.
