@@ -43,6 +43,8 @@ export async function POST(request: NextRequest) {
 
   if (ghlResult.status === "rejected") {
     console.error("GoHighLevel lead delivery failed:", ghlResult.reason);
+  } else {
+    console.log("GoHighLevel lead delivery result:", ghlResult.value);
   }
   if (fbResult.status === "rejected") {
     console.error("Facebook Conversions API delivery failed:", fbResult.reason);

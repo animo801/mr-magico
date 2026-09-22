@@ -41,6 +41,7 @@ export async function sendLeadToGHL(lead: Lead) {
     if (!res.ok) {
       throw new Error(`GHL webhook error: ${res.status} ${await res.text()}`);
     }
+    console.log(`GoHighLevel: lead sent via webhook (${res.status})`);
     return { method: "webhook" as const };
   }
 
@@ -68,6 +69,7 @@ export async function sendLeadToGHL(lead: Lead) {
     if (!res.ok) {
       throw new Error(`GHL API error: ${res.status} ${await res.text()}`);
     }
+    console.log(`GoHighLevel: lead sent via API (${res.status})`);
     return { method: "api" as const };
   }
 
