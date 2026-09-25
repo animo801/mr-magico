@@ -15,6 +15,8 @@ export type TextQuestion = {
   type: "text";
   question: string;
   placeholder: string;
+  /** "service-area-zip": must be a 5-digit zip inside lib/service-area-zips.ts. */
+  validate?: "service-area-zip";
 };
 
 export type QuizQuestion = SingleSelectQuestion | TextQuestion;
@@ -25,6 +27,13 @@ export type QuizQuestion = SingleSelectQuestion | TextQuestion;
  * to GoHighLevel / Facebook, so keep ids stable once you're live.
  */
 export const quizQuestions: QuizQuestion[] = [
+  {
+    id: "location",
+    type: "text",
+    question: "What zip code is the event in?",
+    placeholder: "e.g. 10001",
+    validate: "service-area-zip",
+  },
   {
     id: "event_timing",
     type: "single-select",
@@ -57,11 +66,5 @@ export const quizQuestions: QuizQuestion[] = [
       { label: "8–10", value: "8_10" },
       { label: "11+", value: "11_plus" },
     ],
-  },
-  {
-    id: "location",
-    type: "text",
-    question: "What city or zip code is the event in?",
-    placeholder: "e.g. Los Angeles, CA",
   },
 ];

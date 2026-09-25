@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendFacebookLeadEvent } from "@/lib/facebook-capi";
 import { sendLeadToGHL } from "@/lib/ghl";
+import { isServiceAreaZip } from "@/lib/service-area-zips";
 
 type LeadRequestBody = {
   firstName?: string;
@@ -18,6 +19,11 @@ export async function POST(request: NextRequest) {
 
   if (!firstName || !phone || !contactPreference || !email || !eventId) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
+
+  if (!isServiceAreaZip(answers.location ?? "")) {
+    console.warn(`Lead rejected: zip "${answers.location ?? ""}" is outside the service area.`);
+    return NextResponse.json({ error: "Outside service area" }, { status: 400 });
   }
 
   const fbp = request.cookies.get("_fbp")?.value;

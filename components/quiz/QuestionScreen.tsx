@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuiz } from "@/context/quiz-context";
 import type { QuizQuestion } from "@/lib/quiz-config";
+import { extractZip, isServiceAreaZip } from "@/lib/service-area-zips";
 
 export default function QuestionScreen({
   question,
@@ -21,9 +22,25 @@ export default function QuestionScreen({
   const router = useRouter();
   const { answers, setAnswer } = useQuiz();
   const [value, setValue] = useState(answers[question.id] ?? "");
+  const [error, setError] = useState<string | null>(null);
 
   const handleNext = () => {
     if (!value.trim()) return;
+
+    if (question.type === "text" && question.validate === "service-area-zip") {
+      if (!extractZip(value)) {
+        setError("Enter a 5-digit zip code.");
+        return;
+      }
+      if (!isServiceAreaZip(value)) {
+        setError(
+          "Sorry, Mr. Magico doesn't service that area yet. Try a different zip code."
+        );
+        return;
+      }
+    }
+
+    setError(null);
     setAnswer(question.id, value.trim());
     router.push(nextHref);
   };
@@ -76,10 +93,23 @@ export default function QuestionScreen({
           <input
             type="text"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              setValue(e.target.value);
+              setError(null);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleNext();
+            }}
+            inputMode={question.validate === "service-area-zip" ? "numeric" : undefined}
+            autoComplete={question.validate === "service-area-zip" ? "postal-code" : undefined}
             placeholder={question.placeholder}
             className="h-16 w-full bg-[#d9d9d9]/21 px-5 text-[18px] font-bold text-black outline-none placeholder:font-normal placeholder:text-gray-500 focus:ring-2 focus:ring-[#3653e3]"
           />
+          {error && (
+            <p role="alert" className="text-[15px] font-bold text-red-600">
+              {error}
+            </p>
+          )}
           <button
             type="button"
             onClick={handleNext}
